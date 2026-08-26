@@ -1,10 +1,550 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Mi página web</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>La mirada hacia los jóvenes</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: white;
+        overflow-x: hidden;
+    }
+
+    /* BARRA SUPERIOR */
+
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 15px;
+        background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 12px;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    nav a:hover {
+        color: #ffd000;
+    }
+
+    /* PORTADA */
+
+    .portada {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        background:
+        radial-gradient(circle at center, #333, #080808);
+
+        padding: 20px;
+    }
+
+    .ojo {
+        font-size: 100px;
+        animation: mirar 2s infinite alternate;
+    }
+
+    @keyframes mirar {
+        from {
+            transform: translateX(-10px);
+        }
+
+        to {
+            transform: translateX(10px);
+        }
+    }
+
+    .portada h1 {
+        font-size: clamp(40px, 8vw, 100px);
+        margin-bottom: 15px;
+    }
+
+    .portada h1 span {
+        color: #ffd000;
+    }
+
+    .portada p {
+        font-size: 20px;
+        color: #aaa;
+        max-width: 600px;
+    }
+
+    .scroll {
+        position: absolute;
+        bottom: 30px;
+        color: #ffd000;
+        animation: bajar 1.5s infinite;
+    }
+
+    @keyframes bajar {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(10px); }
+    }
+
+
+    /* SECCIONES */
+
+    section {
+        min-height: 100vh;
+        padding: 100px 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .año {
+        font-size: clamp(70px, 15vw, 180px);
+        font-weight: bold;
+        opacity: 0.15;
+        position: absolute;
+    }
+
+    .contenido {
+        max-width: 900px;
+        margin: auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .contenido h2 {
+        font-size: clamp(35px, 6vw, 70px);
+        margin-bottom: 20px;
+    }
+
+    .contenido p {
+        font-size: 20px;
+        line-height: 1.6;
+        color: #ddd;
+    }
+
+    .frase {
+        margin-top: 35px;
+        padding: 25px;
+        font-size: 24px;
+        font-weight: bold;
+        border-left: 5px solid white;
+        background: rgba(255,255,255,0.08);
+    }
+
+
+    /* 1968 */
+
+    #a1968 {
+        background: linear-gradient(135deg, #5b2c6f, #1a0b1f);
+    }
+
+    #a1968 h2 {
+        color: #ff7df3;
+    }
+
+    .tarjetas {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    .tarjeta {
+        flex: 1;
+        min-width: 150px;
+        padding: 25px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .tarjeta:hover {
+        transform: translateY(-10px) scale(1.03);
+        background: rgba(255,255,255,0.2);
+    }
+
+    .tarjeta .icono {
+        font-size: 45px;
+        margin-bottom: 10px;
+    }
+
+
+    /* 1980 */
+
+    #a1980 {
+        background: linear-gradient(135deg, #004e64, #001d26);
+    }
+
+    #a1980 h2 {
+        color: #00e5ff;
+    }
+
+
+    /* 2004 */
+
+    #a2004 {
+        background: linear-gradient(135deg, #4b0000, #150000);
+    }
+
+    #a2004 h2 {
+        color: #ff5555;
+    }
+
+    .pregunta {
+        margin-top: 40px;
+        font-size: clamp(30px, 5vw, 60px);
+        font-weight: bold;
+        text-align: center;
+        color: white;
+    }
+
+    .pregunta span {
+        color: #ff5555;
+    }
+
+
+    /* ACTUALIDAD */
+
+    #hoy {
+        background:
+        linear-gradient(135deg, #111827, #312e81, #111);
+    }
+
+    #hoy h2 {
+        text-align: center;
+        color: #ffd000;
+    }
+
+    .palabras {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 40px;
+    }
+
+    .palabra {
+        padding: 15px 25px;
+        border-radius: 50px;
+        background: rgba(255,255,255,0.1);
+        font-size: 18px;
+        transition: 0.3s;
+        cursor: default;
+    }
+
+    .palabra:hover {
+        transform: scale(1.1);
+        background: #ffd000;
+        color: black;
+    }
+
+
+    /* FINAL */
+
+    .final {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+        padding: 30px;
+
+        background: black;
+    }
+
+    .final h2 {
+        font-size: clamp(40px, 7vw, 90px);
+        max-width: 1000px;
+    }
+
+    .final h2 span {
+        color: #ffd000;
+    }
+
+    .final p {
+        margin-top: 30px;
+        max-width: 700px;
+        font-size: 20px;
+        color: #aaa;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+
+        nav a {
+            margin: 5px;
+            font-size: 12px;
+        }
+
+        section {
+            padding: 100px 7%;
+        }
+
+        .contenido p {
+            font-size: 17px;
+        }
+
+        .frase {
+            font-size: 20px;
+        }
+    }
+
+</style>
 </head>
+
+
 <body>
-    <h1>¡Hola mundo!</h1>
-    <p>Esta es mi primera página web hecha con GitHub.</p>
+
+
+<!-- MENU -->
+
+<nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#a1968">1968</a>
+    <a href="#a1980">1980</a>
+    <a href="#a2004">2004</a>
+    <a href="#hoy">Hoy</a>
+</nav>
+
+
+<!-- PORTADA -->
+
+<section class="portada" id="inicio">
+
+    <div class="ojo">👁️</div>
+
+    <h1>
+        LA MIRADA HACIA <span>LOS JÓVENES</span>
+    </h1>
+
+    <p>
+        A través del tiempo, la sociedad ha visto a los jóvenes
+        de muchas maneras.
+    </p>
+
+    <div class="scroll">
+        ↓ BAJÁ PARA DESCUBRIRLO
+    </div>
+
+</section>
+
+
+<!-- 1968 -->
+
+<section id="a1968">
+
+    <div class="contenido">
+
+        <div class="año">1968</div>
+
+        <h2>🛍️ El mercado de los jóvenes</h2>
+
+        <p>
+            Los jóvenes comenzaron a tener gustos, música, moda
+            y espacios propios. Ya no eran simplemente una versión
+            más joven de los adultos.
+        </p>
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+                <div class="icono">🎸</div>
+                Música
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">👕</div>
+                Moda
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">✊</div>
+                Rebeldía
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">🛒</div>
+                Consumo
+            </div>
+
+        </div>
+
+        <div class="frase">
+            "Los jóvenes empiezan a construir su propia identidad."
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- 1980 -->
+
+<section id="a1980">
+
+    <div class="contenido">
+
+        <div class="año">1980</div>
+
+        <h2>🚀 La generación del futuro</h2>
+
+        <p>
+            Durante esta época, los adolescentes eran vistos como
+            una generación que se preparaba para entrar al mundo adulto.
+            Estudios, trabajo, libertad y nuevas experiencias formaban
+            parte de esa etapa.
+        </p>
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+                <div class="icono">🎓</div>
+                Estudios
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">🌎</div>
+                Futuro
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">🧭</div>
+                Identidad
+            </div>
+
+        </div>
+
+        <div class="frase">
+            "El futuro parecía estar en sus manos."
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- 2004 -->
+
+<section id="a2004">
+
+    <div class="contenido">
+
+        <div class="año">2004</div>
+
+        <h2>⚠️ Jóvenes violentos</h2>
+
+        <p>
+            En algunos medios comenzó a aparecer con fuerza una mirada
+            más preocupante sobre la juventud, relacionándola con la
+            violencia, los conflictos y la inseguridad.
+        </p>
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+                <div class="icono">⚠️</div>
+                Violencia
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">😡</div>
+                Conflictos
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">📰</div>
+                Medios
+            </div>
+
+        </div>
+
+        <div class="pregunta">
+            Pero... <span>¿todos los jóvenes eran así?</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ACTUALIDAD -->
+
+<section id="hoy">
+
+    <div class="contenido">
+
+        <h2>¿Y cómo nos ven HOY? 🤔</h2>
+
+        <p style="text-align:center;">
+            Actualmente existen muchas opiniones diferentes sobre
+            los jóvenes.
+        </p>
+
+        <div class="palabras">
+
+            <div class="palabra">📱 Adictos al celular</div>
+            <div class="palabra">🔥 Rebeldes</div>
+            <div class="palabra">😴 Perezosos</div>
+            <div class="palabra">🧠 Creativos</div>
+            <div class="palabra">🎮 Gamers</div>
+            <div class="palabra">✊ Comprometidos</div>
+            <div class="palabra">🚀 Innovadores</div>
+
+        </div>
+
+        <div class="frase" style="text-align:center;">
+            ¿Somos realmente como dicen...
+            <br>o simplemente somos una generación diferente?
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section class="final">
+
+    <h2>
+        LOS JÓVENES NO SOMOS
+        <span>UNA SOLA ETIQUETA.</span>
+    </h2>
+
+    <p>
+        A través de los años, la sociedad ha cambiado su manera
+        de mirar a la juventud. Rebeldes, consumidores, el futuro
+        o un problema.
+        <br><br>
+        Pero cada generación tiene su propia voz.
+    </p>
+
+</section>
+
+
 </body>
 </html>
