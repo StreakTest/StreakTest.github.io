@@ -49,7 +49,10 @@ function renderLevels() {
         </div>
 
         <div class="meta-row">
-          <span class="difficulty">${escapeHtml(level.difficulty || "Extreme Demon")}</span>
+          <span class="difficulty">
+            <img src="ExtremeDemon.png" alt="Extreme Demon" class="difficulty-icon">
+            ${escapeHtml(level.difficulty || "Extreme Demon")}
+          </span>
           <span class="meta-divider">•</span>
           <span class="level-id">ID ${escapeHtml(level.id)}</span>
           <span class="meta-divider">•</span>
